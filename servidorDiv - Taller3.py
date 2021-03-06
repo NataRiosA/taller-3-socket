@@ -1,9 +1,8 @@
 import socketserver
 ## Python 3.7
 
-def suma(numero1,numero2):
-	return numero1 + numero2
-
+def div(numero1,numero2):
+	return numero1 / numero2
 	    
 class miHandler(socketserver.BaseRequestHandler):
 
@@ -18,17 +17,16 @@ class miHandler(socketserver.BaseRequestHandler):
 		print ("operacion =", self.operacion)
 		print ("los numeros recibidos son: ",self.numero1,"y", self.numero2)
 
-		self.sumando = str(suma(self.numero1, self.numero2))
-		print ("suma :", self.sumando)
+		self.dividiendo = str(div(self.numero1, self.numero2))
+		print ("division :", self.dividiendo)
 		
-		self.request.send(self.sumando.encode("UTF-8"))
+		self.request.send(self.dividiendo.encode("UTF-8"))
 		
-				
 
 def main():
 	print ("Servidor escuchando...")
 	host="localhost"
-	puerto=9997   #entre 0 y 10000, por los 9000 no estan usados
+	puerto=9994   #entre 0 y 10000, por los 9000 no estan usados
 
 	server1= socketserver.TCPServer((host,puerto),miHandler)
 	print ("server corriendo")

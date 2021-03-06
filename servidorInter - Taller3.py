@@ -15,6 +15,10 @@ puerto3= 9995
 socket3=socket.socket()
 socket3.connect((host1,puerto3))
 
+puerto4 =9994
+socket4=socket.socket()
+socket4.connect((host1, puerto4))
+
 def MenuOperacion(x,y,op):
 	print(x,y,op)
 
@@ -32,6 +36,11 @@ def MenuOperacion(x,y,op):
 		socket3.send(x.encode("UTF-8"))
 		socket3.send(y.encode("UTF-8"))
 		socket3.send(op.encode("UTF-8"))	
+
+	elif op=='4':
+		socket4.send(x.encode("UTF-8"))
+		socket4.send(y.encode("UTF-8"))
+		socket4.send(op.encode("UTF-8"))		
     
 	else: pass
 
@@ -51,16 +60,25 @@ class miHandler(socketserver.BaseRequestHandler):
 			self.suman=socket1.recv(1024).decode("UTF-8")
 			print ("La suma es: ", self.suman)
 			self.request.send(self.suman.encode("UTF-8"))
+			socket1.close()
 			
 		elif self.operacion == '2':
 			self.restan=socket2.recv(1024).decode("UTF-8")
 			print ("La resta es: ", self.restan)
 			self.request.send(self.restan.encode("UTF-8"))
+			socket2.close()
 
 		elif self.operacion == '3':
 			self.multiplican=socket3.recv(1024).decode("UTF-8")
 			print ("La multiplicacion es: ", self.multiplican)
 			self.request.send(self.multiplican.encode("UTF-8"))
+			socket3.close()
+
+		elif self.operacion == '4':
+			self.dividen=socket4.recv(1024).decode("UTF-8")
+			print ("La division es: ", self.dividen)
+			self.request.send(self.dividen.encode("UTF-8"))
+			socket4.close()	
 
 		else: pass
 

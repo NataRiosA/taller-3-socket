@@ -7,6 +7,7 @@ print ("taller 3")
 host="localhost"
 puerto=9999
 socket1=socket.socket()
+socket1.connect((host,puerto))
 
 
 def menu():
@@ -14,7 +15,7 @@ def menu():
     print("1. SUMA")
     print("2. RESTA")
     print("3. MULTIPLICACION")
-    print("4. DIVIDICION")
+    print("4. DIVICION")
     print("5. POTENCIACION")
     print("6. LOGARITMACION")
     print("0. PARA SALIR")
@@ -23,7 +24,6 @@ menu()
    
 
 def digitarNumero():
-    socket1.connect((host,puerto))
     x=(input("ingrese el primer numero: "))
     y=(input("Ingrese el segundo numero: "))
     socket1.send(x.encode("UTF-8"))
@@ -33,11 +33,10 @@ while True:
     p=(input("Digite la operacion a realizar: "))
    
     if p=="1":
-        digitarNumero()               
-        socket1.send(p.encode("UTF-8"))
-        suman=socket1.recv(1024).decode("UTF-8")
-        print ("La suma es: ", suman)
-        
+       digitarNumero()               
+       socket1.send(p.encode("UTF-8"))
+       suman=socket1.recv(1024).decode("UTF-8")
+       print ("La suma es: ", suman)
 
     if p=="2":
        digitarNumero()
@@ -49,7 +48,13 @@ while True:
        digitarNumero()
        socket1.send(p.encode("UTF-8"))
        multiplican=socket1.recv(1024).decode("UTF-8")
-       print("La multiplicacion es: ", multiplican)   
+       print("La multiplicacion es: ", multiplican)
+
+    if p=="4":
+       digitarNumero()
+       socket1.send(p.encode("UTF-8"))
+       dividen=socket1.recv(1024).decode("UTF-8")
+       print("La division es: ", dividen)      
        
 
     elif p=="0":
