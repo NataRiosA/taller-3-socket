@@ -11,6 +11,10 @@ puerto2=9996
 socket2=socket.socket()
 socket2.connect((host1,puerto2))
 
+puerto3= 9995
+socket3=socket.socket()
+socket3.connect((host1,puerto3))
+
 def MenuOperacion(x,y,op):
 	print(x,y,op)
 
@@ -23,6 +27,11 @@ def MenuOperacion(x,y,op):
 		socket2.send(x.encode("UTF-8"))
 		socket2.send(y.encode("UTF-8"))
 		socket2.send(op.encode("UTF-8"))
+
+	elif op=='3':
+		socket3.send(x.encode("UTF-8"))
+		socket3.send(y.encode("UTF-8"))
+		socket3.send(op.encode("UTF-8"))	
     
 	else: pass
 
@@ -47,6 +56,12 @@ class miHandler(socketserver.BaseRequestHandler):
 			self.restan=socket2.recv(1024).decode("UTF-8")
 			print ("La resta es: ", self.restan)
 			self.request.send(self.restan.encode("UTF-8"))
+
+		elif self.operacion == '3':
+			self.multiplican=socket3.recv(1024).decode("UTF-8")
+			print ("La multiplicacion es: ", self.multiplican)
+			self.request.send(self.multiplican.encode("UTF-8"))
+
 		else: pass
 
 
